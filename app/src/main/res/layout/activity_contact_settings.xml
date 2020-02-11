@@ -41,14 +41,14 @@
             android:layout_toEndOf="@+id/imageButtonMap"
             android:layout_toRightOf="@+id/imageButtonMap"
             app:srcCompat="@drawable/settingsicon" />
-    </RelativeLayout>
-
+    </RelativeLayout> // navbar
 
     <ScrollView
         android:id="@+id/settingsScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_above="@+id/navbar">
 
         <RelativeLayout
             android:id="@+id/settingsR"

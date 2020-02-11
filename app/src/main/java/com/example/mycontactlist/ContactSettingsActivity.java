@@ -55,7 +55,7 @@ public class ContactSettingsActivity extends AppCompatActivity {
     }
 
     private void initSettingsButton() {
-        ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonMap);
+        ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonSettings);
         ibList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
