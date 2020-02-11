@@ -6,10 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".ContactListActivity">
 
+    <RelativeLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/toolbar_background"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/toolbar">
+
+        <Button android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/buttonDelete"
+            android:text="Delete"
+            android:layout_marginLeft="20dp"/>
+
+        <Button android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/buttonAdd"
+            android:text="Add Contact"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/lvContacts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="592dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="-1dp" />
 
     <RelativeLayout
         android:id="@+id/navbar"

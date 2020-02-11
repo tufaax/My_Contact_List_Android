@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -18,6 +19,8 @@ import java.util.RandomAccess;
 
 public class ContactListActivity extends AppCompatActivity {
 
+    boolean isDeleting = false;
+    ContactAdapter adapter;
     ArrayList<Contact> contacts;
 
 
@@ -27,6 +30,7 @@ public class ContactListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact_list);
         initMapButton();
         initListButton();
+        initDeleteButton();
 
         ContactDataSource ds = new ContactDataSource(this);
 
@@ -45,6 +49,25 @@ public class ContactListActivity extends AppCompatActivity {
         initItemClick();
 
     }
+
+    private void initDeleteButton() {
+        final Button deleteButton = (Button) findViewById(R.id.buttonDelete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (isDeleting) {
+                    deleteButton.setText("Delete");
+                    isDeleting = false;
+
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    deleteButton.setText("Done Deleting");
+                    isDeleting = true;
+                }
+            }
+        });
+    }
+
     private void initListButton(){
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
         ibList.setOnClickListener(new View.OnClickListener() {

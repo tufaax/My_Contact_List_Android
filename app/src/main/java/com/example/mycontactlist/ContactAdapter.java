@@ -47,4 +47,41 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         return v;
     }
 
+    public void showDelete(final int position, final View convertView, final Context context, final Contact contact) {
+        View v = convertView;
+        final Button b = (Button) v.findViewById(R.id.buttonDeleteContact);
+
+        if (b.getVisibility()==View.INVISIBLE) {
+            b.setVisibility(View.VISIBLE);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hideDelete(position, convertView, context);
+                    items.remove(contact);
+                    deleteOption(contact.getContactID(), context);
+                }
+
+            });
+        }
+        else {
+            hideDelete(position, convertView, context);
+        }
+    }
+
+    private void deleteOption(int contactToDelete, Context context) {
+        ContactDataSource db = new ContactDataSource(context);
+        db.open();
+        db.deleteContact(contactToDelete);
+        db.close();
+        this.notifyDataSetChanged();
+    }
+
+    private void hideDelete(int position, View convertView, Context context) {
+        View v = convertView;
+        final Button b = (Button) v.findViewById(R.id.buttonDeleteContact);
+        b.setVisibility(View.INVISIBLE);
+        b.setOnClickListener(null);
+    }
+
+
 }
