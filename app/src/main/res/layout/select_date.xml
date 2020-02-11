@@ -18,7 +18,7 @@
        android:layout_height="wrap_content"
        android:orientation="horizontal"
        android:layout_alignParentBottom="true"
-       android:gravity="end"
+       android:gravity="center_horizontal"
        >
 
       <Button
@@ -26,7 +26,8 @@
           style=""
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Cancel" />
+          android:text="Cancel"
+          />
 
       <Button
           android:id="@+id/buttonSelect"
