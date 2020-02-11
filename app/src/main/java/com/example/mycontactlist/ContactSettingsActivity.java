@@ -55,10 +55,17 @@ public class ContactSettingsActivity extends AppCompatActivity {
     }
 
     private void initSettingsButton() {
-        ImageButton ibSettings = (ImageButton) findViewById(R.id.imageButtonSettings);
-        ibSettings.setEnabled(false);
-    }
+        ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonMap);
+        ibList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ContactSettingsActivity.this, ContactSettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
 
+            }
+        });
+    }
     private void initSettings() {
         String sortBy = getSharedPreferences("MyContactListPreferences",
                 Context.MODE_PRIVATE).getString("sortfield", "contactname");
@@ -186,6 +193,8 @@ public class ContactSettingsActivity extends AppCompatActivity {
                 }
             });
         }
+
+
 
 
 }
