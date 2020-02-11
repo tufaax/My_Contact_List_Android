@@ -40,7 +40,14 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         initSaveButton();
 
 
-        currentContact = new Contact();
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            initContact(extras.getInt("contactid"));
+        }
+        else {
+            currentContact = new Contact();
+        }
+        setForEditing(false);
 
 
 
@@ -313,5 +320,37 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         imm.hideSoftInputFromWindow(editCell.getWindowToken(), 0);
         EditText editEMail = (EditText) findViewById(R.id.editEMail);
         imm.hideSoftInputFromWindow(editEMail.getWindowToken(), 0);
+    }
+
+
+    private void initContact(int id) {
+
+        ContactDataSource ds = new ContactDataSource(ContactActivity.this);
+
+        ds.open();
+        currentContact = ds.getSpecificContact(id);
+        ds.close();
+
+
+        EditText editName = (EditText) findViewById(R.id.editName);
+        EditText editAddress = (EditText) findViewById(R.id.editAddress);
+        EditText editCity = (EditText) findViewById(R.id.editCity);
+        EditText editState = (EditText) findViewById(R.id.editState);
+        EditText editZipCode = (EditText) findViewById(R.id.editZipcode);
+        EditText editPhone = (EditText) findViewById(R.id.editHome);
+        EditText editCell = (EditText) findViewById(R.id.editCell);
+        EditText editEmail = (EditText) findViewById(R.id.editEMail);
+        TextView birthDay = (TextView) findViewById(R.id.textBirthday);
+
+        editName.setText(currentContact.getContactName());
+        editAddress.setText(currentContact.getStreetAddress());
+        editCity.setText(currentContact.getCity());
+        editState.setText(currentContact.getState());
+        editZipCode.setText(currentContact.getZipCode());
+        editPhone.setText(currentContact.getPhoneNumber());
+        editCell.setText(currentContact.getCellNumber());
+        editEmail.setText(currentContact.geteMail());
+
+        birthDay.setText(DateFormat.format("MM/dd/yyyy", currentContact.getBirthday().getTimeInMillis()).toString());
     }
 }

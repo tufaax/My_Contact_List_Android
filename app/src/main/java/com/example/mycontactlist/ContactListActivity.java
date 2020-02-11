@@ -31,23 +31,33 @@ public class ContactListActivity extends AppCompatActivity {
         initMapButton();
         initListButton();
         initDeleteButton();
+        initItemClick();
+        initAddContactButton();
 
         ContactDataSource ds = new ContactDataSource(this);
 
-        try{
+        try {
             ds.open();
             contacts = ds.getContacts();
             ds.close();
-            ListView listView = (ListView)findViewById(R.id.lvContacts);
-            listView.setAdapter(new ContactAdapter(this, contacts));
+            ListView listView = (ListView) findViewById(R.id.lvContacts);
+            adapter = new ContactAdapter(this, contacts);
+            listView.setAdapter(adapter);
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "Error retrieving contacts", Toast.LENGTH_LONG).show();
         }
 
-        initItemClick();
+    }
 
+    private void initAddContactButton() {
+        Button newContact = (Button) findViewById(R.id.buttonAdd);
+        newContact.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(ContactListActivity.this, ContactActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initDeleteButton() {
@@ -99,9 +109,13 @@ public class ContactListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Contact selectedContact = contacts.get(position);
-                Intent intent = new Intent(ContactListActivity.this, ContactActivity.class);
-                intent.putExtra("contactid", selectedContact.getContactID());
-                startActivity(intent);
+                if (isDeleting) {
+                    adapter.showDelete(position, parent, ContactListActivity.this, selectedContact);
+                } else {
+                    Intent intent = new Intent(ContactListActivity.this, ContactActivity.class);
+                    intent.putExtra("contactid", selectedContact.getContactID());
+                    startActivity(intent);
+                }
             }
         });
     }
