@@ -17,6 +17,16 @@ public class Contact {
     private String cellNumber;
     private String eMail;
 
+    public int getBff() {
+        return bff;
+    }
+
+    public void setBff(int bff) {
+        this.bff = bff;
+    }
+
+    private int bff;
+
     public int getContactID() {
         return contactID;
     }
@@ -102,6 +112,7 @@ public class Contact {
     public Contact() {
         contactID = -1;
         birthday = Calendar.getInstance();
+        bff=0;
     }
 
 

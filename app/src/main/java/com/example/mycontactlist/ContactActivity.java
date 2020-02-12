@@ -50,6 +50,7 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         initChangeDateButton();
         initTextChangedEvents();
         initSaveButton();
+        bestFriendButton();
 
 
 
@@ -113,6 +114,8 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         EditText editEmail = (EditText) findViewById(R.id.editEMail);
         Button buttonChange = (Button) findViewById(R.id.btnBirthday);
         Button buttonSave = (Button) findViewById(R.id.buttonSave);
+        ToggleButton buttonFavorite=(ToggleButton) findViewById(R.id.btnBFF) ;
+
 
         editName.setEnabled(enabled);
         editAddress.setEnabled(enabled);
@@ -124,6 +127,8 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         editEmail.setEnabled(enabled);
         buttonChange.setEnabled(enabled);
         buttonSave.setEnabled(enabled);
+        buttonFavorite.setEnabled(enabled);
+
 
         if (enabled) {
             editName.requestFocus();
@@ -354,6 +359,21 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         editEmail.setText(currentContact.geteMail());
 
         birthDay.setText(DateFormat.format("MM/dd/yyyy", currentContact.getBirthday().getTimeInMillis ()).toString());
+    }
+
+    private void bestFriendButton(){
+        final  ToggleButton buttonFavorite=(ToggleButton) findViewById(R.id.btnBFF) ;
+        buttonFavorite.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(buttonFavorite.isChecked()){
+                    currentContact.setBff(1);
+                }
+                else {
+                    currentContact.setBff(0);
+                }
+            }
+        });
     }
 
 }

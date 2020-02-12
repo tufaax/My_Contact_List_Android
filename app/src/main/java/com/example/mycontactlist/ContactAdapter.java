@@ -2,11 +2,13 @@ package com.example.mycontactlist;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,12 +51,26 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             TextView contactZip = (TextView) v.findViewById(R.id.textZIP);
 
             Button b = (Button) v.findViewById(R.id.buttonDeleteContact);
+            ImageView star = (ImageView) v.findViewById(R.id.imageStar) ;
+
+
             contactName.setText(contact.getContactName());
             contactNumber.setText("Home Phone: "+ contact.getPhoneNumber());
             contactCell.setText("Cell: " + contact.getCellNumber());
             contactStreetAdd.setText(contact.getStreetAddress());
             contactState.setText(contact.getState());
             contactZip.setText(contact.getZipCode());
+
+
+            Log.w(contact.getBff() +"", "hello");
+
+            if(contact.getBff() == 0 ){
+                star.setVisibility(View.INVISIBLE);
+            }
+            else{
+                star.setVisibility(View.VISIBLE);
+            }
+
             b.setVisibility(View.INVISIBLE);
         }
         catch (Exception e) {

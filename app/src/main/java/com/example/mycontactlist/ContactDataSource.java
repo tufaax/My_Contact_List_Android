@@ -41,6 +41,8 @@ public class ContactDataSource {
             initialValues.put("cellnumber", c.getCellNumber());
             initialValues.put("email", c.geteMail());
             initialValues.put("birthday", String.valueOf(c.getBirthday().getTimeInMillis()));
+            initialValues.put("bff",c.getBff());
+
 
             didSucceed = database.insert("contact", null, initialValues) > 0;
 
@@ -64,6 +66,7 @@ public class ContactDataSource {
             updateValues.put("cellnumber", c.getCellNumber());
             updateValues.put("email", c.geteMail());
             updateValues.put("birthday", String.valueOf(c.getBirthday().getTimeInMillis()));
+            updateValues.put("bff", c.getBff());
 
             didSucceed = database.update("contact", updateValues, "_id=" + rowId, null) > 0;
         } catch (Exception e) {
@@ -151,7 +154,10 @@ public class ContactDataSource {
                 Calendar calendar = Calendar.getInstance();
                 newContact.setBirthday(calendar);
                 contacts.add(newContact);
+                newContact.setBff(cursor.getInt(10));
+
                 cursor.moveToNext();
+
             }
             cursor.close();
         }
@@ -180,6 +186,7 @@ public class ContactDataSource {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(Long.valueOf(cursor.getString(9)));
             contact.setBirthday(calendar);
+            contact.setBff(cursor.getInt(10));
 
             cursor.close();
         }
