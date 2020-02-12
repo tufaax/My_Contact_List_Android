@@ -44,10 +44,17 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             }
             TextView contactNumber = (TextView) v.findViewById(R.id.textPhoneNumber);
             TextView contactCell = (TextView) v.findViewById(R.id.textCellNumber);
+            TextView contactStreetAdd = (TextView) v.findViewById(R.id.textStreetAddress);
+            TextView contactState = (TextView) v.findViewById(R.id.textState);
+            TextView contactZip = (TextView) v.findViewById(R.id.textZIP);
+
             Button b = (Button) v.findViewById(R.id.buttonDeleteContact);
             contactName.setText(contact.getContactName());
             contactNumber.setText("Home Phone: "+ contact.getPhoneNumber());
             contactCell.setText("Cell: " + contact.getCellNumber());
+            contactStreetAdd.setText(contact.getStreetAddress());
+            contactState.setText(contact.getState());
+            contactZip.setText(contact.getZipCode());
             b.setVisibility(View.INVISIBLE);
         }
         catch (Exception e) {

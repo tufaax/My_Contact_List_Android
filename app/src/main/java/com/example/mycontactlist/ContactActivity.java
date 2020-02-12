@@ -31,6 +31,7 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        hideKeyboard();
         initListButton();
         initMapButton();
         initSettingsButton();

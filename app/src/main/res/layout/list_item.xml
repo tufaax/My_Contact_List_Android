@@ -8,6 +8,10 @@
         android:id="@+id/textZIP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textState"
+        android:layout_toEndOf="@+id/textState"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/textState"
         android:text="ZIP" />
 
     <TextView
@@ -42,7 +46,8 @@
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
         android:layout_below="@+id/textPhoneNumber"
-        android:text="Cell Name" />
+        android:text="Cell Name"
+        />
 
     <Button
         android:id="@+id/buttonDeleteContact"
@@ -66,11 +71,18 @@
         android:id="@+id/textStreetAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textCellNumber"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"
         android:text="Street Address" />
 
     <TextView
         android:id="@+id/textState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textStreetAddress"
+        android:layout_toEndOf="@+id/textStreetAddress"
+        android:layout_toRightOf="@+id/textStreetAddress"
+        android:layout_marginLeft="5dp"
         android:text="State" />
 </RelativeLayout>

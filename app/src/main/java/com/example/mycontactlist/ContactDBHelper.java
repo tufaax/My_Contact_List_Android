@@ -19,7 +19,7 @@ public class ContactDBHelper extends SQLiteOpenHelper{
             + "contactname text not null, streetaddress text, "
             + "city text, state text, zipcode text, "
             + "phonenumber text, cellnumber text, "
-            + "email text, birthday text);";
+            + "email text, birthday text, bff integer);";
 
      public ContactDBHelper(Context context){
          super(context, DATABASE_NAME,null, DATABASE_VERSION);
@@ -34,7 +34,7 @@ public class ContactDBHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         try {
-            db.execSQL("DROP TABLE contact");
+            db.execSQL("ALTER TABLE contact ADD COLUMN bff integer");
         }
         catch(Exception e) {
             e.printStackTrace();
