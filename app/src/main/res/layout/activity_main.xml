@@ -237,6 +237,17 @@
                 android:layout_alignBaseline="@+id/textBirthday"
                 />
 
+            <ToggleButton
+                android:id="@+id/btnBFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ToggleButton"
+                android:layout_below="@+id/btnBirthday"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"/>
+
 
         </RelativeLayout>
     </ScrollView>
