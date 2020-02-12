@@ -12,4 +12,6 @@
         <color name="rb_orange">#FFA100</color>
         <color name="toolbar_background">#bebebe</color>
         <color name="scrollView">#8DB3FF</color>
+        <color name="listitem1">#B6BABD</color>
+        <color name="listitem2">#BBFABE</color>
 </resources>

@@ -1,12 +1,15 @@
 package com.example.mycontactlist;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.ColorLong;
 
 import java.util.ArrayList;
 
@@ -24,8 +27,11 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
+
         try {
             Contact contact = items.get(position);
+
+
 
             if(v == null){
                 LayoutInflater vi =(LayoutInflater) adapterContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -33,11 +39,30 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
                 v = vi.inflate(R.layout.list_item, null);
             }
             TextView contactName = (TextView) v.findViewById(R.id.textContactName);
-            TextView contactNumber = (TextView) v.findViewById(R.id.textPhoneNumber);
+            TextView contactHomeNumber = (TextView) v.findViewById(R.id.textHomePhoneNumber);
+            TextView contactCellNumber = (TextView) v.findViewById(R.id.textPhoneNumber);
+            TextView contactAddress = (TextView) v.findViewById(R.id.textAddress);
             Button b = (Button) v.findViewById(R.id.buttonDeleteContact);
-            contactName.setText(contact.getContactName());
-            contactNumber.setText(contact.getPhoneNumber());
             b.setVisibility((View.INVISIBLE));
+            contactName.setText(contact.getContactName());
+            contactHomeNumber.setText(contact.getPhoneNumber());
+
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
+
+        try {
+            if(position %2 == 1)
+            {
+                convertView.setBackgroundColor(Color.parseColor("#B6BABD"));
+            }
+            else
+            {
+                convertView.setBackgroundColor(Color.parseColor("#BBFABE"));
+            }
         }
         catch(Exception e){
             e.printStackTrace();

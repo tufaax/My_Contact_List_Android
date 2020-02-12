@@ -16,6 +16,8 @@
         android:textColor="@color/system_blue"
         android:text="Contact Name" />
 
+
+
     <TextView
         android:id="@+id/textPhoneNumber"
         android:layout_width="wrap_content"
@@ -25,7 +27,17 @@
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
         android:layout_below="@+id/textContactName"
-        android:text="Phone Number" />
+        android:text="Cell Phone Number" />
+    <TextView
+        android:id="@+id/textHomePhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_below="@+id/textPhoneNumber"
+        android:text="Home Phone Number" />
 
     <Button
         android:id="@+id/buttonDeleteContact"
