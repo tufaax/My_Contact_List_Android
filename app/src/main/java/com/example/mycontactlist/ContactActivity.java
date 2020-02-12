@@ -16,7 +16,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -111,6 +113,7 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         EditText editEmail = (EditText) findViewById(R.id.editEMail);
         Button buttonChange = (Button) findViewById(R.id.btnBirthday);
         Button buttonSave = (Button) findViewById(R.id.buttonSave);
+        Switch bff =(Switch) findViewById(R.id.switch1);
 
         editName.setEnabled(enabled);
         editAddress.setEnabled(enabled);
@@ -122,6 +125,7 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         editEmail.setEnabled(enabled);
         buttonChange.setEnabled(enabled);
         buttonSave.setEnabled(enabled);
+        bff.setChecked(false);
 
         if (enabled) {
             editName.requestFocus();
@@ -154,6 +158,7 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
 
         currentContact.setBirthday(selectedTime);
     }
+
 
     private void initTextChangedEvents(){
         final EditText etContactName = (EditText) findViewById(R.id.editName);

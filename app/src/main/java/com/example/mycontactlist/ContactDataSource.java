@@ -181,6 +181,7 @@ public class ContactDataSource {
             Calendar t = Calendar.getInstance();
             t.setTimeInMillis(Long.valueOf(cursor.getString(9)));
             contact.setBirthday(t);
+
             cursor.close();
         }
 
