@@ -47,8 +47,11 @@
     <ScrollView
         android:id="@+id/settingsScroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/navbar">
 
         <RelativeLayout
             android:id="@+id/settingsR"
@@ -164,13 +167,20 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/colorGroup"
                     android:text="Blue Background" />
-
+                <RadioButton
+                    android:id="@+id/radioDefault"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/radioBlue"
+                    android:text="Default background" />
                 <RadioButton
                     android:id="@+id/radioRed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/radioBlue"
                     android:text="Red Background" />
+
+
             </RadioGroup>
 
         </RelativeLayout>
