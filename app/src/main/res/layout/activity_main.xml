@@ -126,6 +126,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="numberSigned"
                 android:nextFocusDown="@+id/editHome"/>
+
             <TextView
                 android:id="@+id/textHome"
                 android:layout_width="wrap_content"
@@ -246,7 +247,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="10dp"
+                android:textOff="U aint cool."
+                android:textOn="U cool."/>
 
 
         </RelativeLayout>

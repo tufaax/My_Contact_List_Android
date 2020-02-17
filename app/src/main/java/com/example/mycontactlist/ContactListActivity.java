@@ -116,8 +116,8 @@ public class ContactListActivity extends AppCompatActivity {
         });
     }
     private void initMapButton(){
-        ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonMap);
-        ibList.setOnClickListener(new View.OnClickListener() {
+        ImageButton ibMap = (ImageButton) findViewById(R.id.imageButtonMap);
+        ibMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ContactListActivity.this, ContactMapActivity.class);
