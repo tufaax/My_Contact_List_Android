@@ -21,7 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -29,6 +29,8 @@ import java.util.List;
 public class ContactMapActivity extends AppCompatActivity {
 
     final int PERMISSION_REQUEST_LOCATION = 101;
+    Location currentBestLocation;
+    LocationListener networkListener;
     LocationManager locationManager;
     LocationListener gpsListener;
 
@@ -39,22 +41,29 @@ public class ContactMapActivity extends AppCompatActivity {
         initListButton();
         initMapButton();
         initSettingsButton();
-        initGetLocationButton();
+        //initGetLocationButton();
+       // startLocationUpdates();
+       // onPause();
 
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
-        try{
-            locationManager.removeUpdates(gpsListener);
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(getBaseContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getBaseContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
-        catch(Exception e){
+        try {
+            locationManager.removeUpdates(gpsListener);
+            locationManager.removeUpdates(networkListener);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void initListButton(){
+    private void initListButton() {
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonList);
         ibList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +75,8 @@ public class ContactMapActivity extends AppCompatActivity {
             }
         });
     }
-    private void initMapButton(){
+
+    private void initMapButton() {
         ImageButton ibMap = (ImageButton) findViewById(R.id.imageButtonMap);
         ibMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +88,8 @@ public class ContactMapActivity extends AppCompatActivity {
             }
         });
     }
-    private void initSettingsButton(){
+
+    private void initSettingsButton() {
         ImageButton ibList = (ImageButton) findViewById(R.id.imageButtonSettings);
         ibList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +101,7 @@ public class ContactMapActivity extends AppCompatActivity {
             }
         });
     }
+/*
     private void initGetLocationButton() {
         Button locationButton = (Button) findViewById(R.id.buttonGetLocation);
         locationButton.setOnClickListener(new View.OnClickListener() {
@@ -123,49 +135,114 @@ public class ContactMapActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(getBaseContext(), "Error requesting permission", Toast.LENGTH_LONG).show();
                 }
-        }
-    });
+            }
+        });
 
- }
-
+    }
+/*
     private void startLocationUpdates() {
-        try{
-            locationManager = (LocationManager)getBaseContext().getSystemService(Context.LOCATION_SERVICE);
+        try {
+            if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(getBaseContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getBaseContext(),
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            networkListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    if(isBetterLocation(location)){
+                        currentBestLocation = location;
+                        // display in location in TextViews
+                    }
+                    //no else block.. if not better, just ignore.
+                    TextView txtLatitude = (TextView) findViewById(R.id.textLatitude);
+                    TextView txtLongitude = (TextView) findViewById(R.id.textLongitude);
+                    TextView txtAccuracy = (TextView) findViewById(R.id.textAccuracy);
+                    txtLatitude.setText((String.valueOf(location.getLatitude())));
+                    txtLongitude.setText(String.valueOf(location.getLongitude()));
+                    txtAccuracy.setText(String.valueOf(location.getAccuracy()));
+
+
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+                }
+            };
+
+            locationManager = (LocationManager) getBaseContext().getSystemService(Context.LOCATION_SERVICE);
             gpsListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
                     TextView txtLatitude = (TextView) findViewById(R.id.textLatitude);
                     TextView txtLongitude = (TextView) findViewById(R.id.textLongitude);
                     TextView txtAccuracy = (TextView) findViewById(R.id.textAccuracy);
-                    txtLatitude.setText(String.valueOf(location.getLatitude()));
+                    txtLatitude.setText((String.valueOf(location.getLatitude())));
                     txtLongitude.setText(String.valueOf(location.getLongitude()));
                     txtAccuracy.setText(String.valueOf(location.getAccuracy()));
+
                 }
 
                 @Override
                 public void onStatusChanged(String provider, int status, Bundle extras) {
-
                 }
 
                 @Override
                 public void onProviderEnabled(String provider) {
-
                 }
 
                 @Override
                 public void onProviderDisabled(String provider) {
-
                 }
+            };
 
-                ;
-                        locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,0,0,gpsListener);
-            }
-        }catch (Exception e){
-            Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_LONG).show();
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, networkListener);
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_SHORT).show();
         }
 
     }
-
+*/
+/*
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                          String permissions[], int[] grantResults){
+        switch(requestCode){
+            case PERMISSION_REQUEST_LOCATION: {
+                if(grantResults.length > 0 &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    startLocationUpdates();
+                 } else {
+                    Toast.makeText(ContactMapActivity.this,
+                            "MyContactList will not locate your contacts.",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+*/
+    private boolean isBetterLocation(Location location){
+        boolean isBetter = false;
+        if(currentBestLocation == null){
+            isBetter = true;
+        }
+        else if(location.getAccuracy() <= currentBestLocation.getAccuracy()){
+            isBetter = true;
+        }
+        else if(location.getTime() - currentBestLocation.getTime() > 5*60*1000){
+            isBetter = true;
+        }
+        return isBetter;
+    }
 }
 
