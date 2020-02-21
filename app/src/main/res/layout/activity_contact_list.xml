@@ -28,6 +28,15 @@
             android:textOff="Enable Delete"
             android:textOn="Disable Delete"/>
 
+        <TextView
+            android:id="@+id/textBatteryLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100%"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
+
         <Button
             android:id="@+id/buttonAdd"
             android:layout_width="wrap_content"

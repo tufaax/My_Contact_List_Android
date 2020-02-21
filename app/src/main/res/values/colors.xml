@@ -10,6 +10,7 @@
         <color name="system_blue">#0000ff</color>
         <color name="rb_red">#921111</color>
         <color name="rb_orange">#FFA100</color>
+        <color name="rb_default">#FFFFFF</color>
         <color name="toolbar_background">#bebebe</color>
         <color name="scrollView">#8DB3FF</color>
 </resources>

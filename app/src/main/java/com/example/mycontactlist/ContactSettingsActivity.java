@@ -26,6 +26,8 @@ public class ContactSettingsActivity extends AppCompatActivity {
         initSortOrderClick();
         initSortByClick();
         initSetColor();
+
+
     }
 
     private void initListButton() {
@@ -66,6 +68,9 @@ public class ContactSettingsActivity extends AppCompatActivity {
         String sortOrder = getSharedPreferences("MyContactListPreferences",
                 Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
+        String sortColor = getSharedPreferences("MyContactListPreferences",
+                Context.MODE_PRIVATE).getString("sortColr","default");
+
         RadioButton rbName = (RadioButton) findViewById(R.id.radioName);
         RadioButton rbCity = (RadioButton) findViewById(R.id.radioCity);
         RadioButton rbBirthday = (RadioButton) findViewById(R.id.radioBirthday);
@@ -79,8 +84,7 @@ public class ContactSettingsActivity extends AppCompatActivity {
         }
 
         //Color
-        String sortColor = getSharedPreferences("MyContactListPreferences",
-                Context.MODE_PRIVATE).getString("sortColr","Blue Background");
+
         RadioButton rbAscending = (RadioButton) findViewById(R.id.radioAscending);
         RadioButton rbDescending = (RadioButton) findViewById(R.id.radioDescending);
 
@@ -92,101 +96,115 @@ public class ContactSettingsActivity extends AppCompatActivity {
 
         RadioButton red = (RadioButton) findViewById(R.id.radioRed);
         RadioButton blue = (RadioButton)findViewById(R.id.radioBlue);
-
-        if(sortColor.equalsIgnoreCase("Red Background")){
+        RadioButton Default =(RadioButton)findViewById(R.id.radioDefault);
+        ScrollView setting =findViewById(R.id.settingsScroll);
+        if(sortColor.equalsIgnoreCase("red")){
             red.setChecked(true);
-            RelativeLayout settings= (RelativeLayout) findViewById(R.id.settingsR);
-
+            ScrollView settings = (ScrollView) findViewById(R.id.settingsScroll);
             settings.setBackgroundColor(getResources().getColor(R.color.rb_red));
         }
 
-        else {
+        else if (sortColor.equalsIgnoreCase("blue")) {
             blue.setChecked(true);
-            RelativeLayout settings= (RelativeLayout) findViewById(R.id.settingsR);
-
+            ScrollView settings = (ScrollView) findViewById(R.id.settingsScroll);
             settings.setBackgroundColor(getResources().getColor(R.color.rb_blue));
         }
+        else if (sortColor.equalsIgnoreCase("default")) {
+            Default.setChecked(true);
+            ScrollView settings = (ScrollView) findViewById(R.id.settingsScroll);
+            settings.setBackgroundColor(getResources().getColor(R.color.rb_default));
+        }
+
 
 
     }
 
-        private void initSortByClick() {
-            RadioGroup rgSortBy = (RadioGroup) findViewById(R.id.radioGroupSortBy);
-            rgSortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+    private void initSortByClick() {
+        RadioGroup rgSortBy = (RadioGroup) findViewById(R.id.radioGroupSortBy);
+        rgSortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
-                @Override
-                public void onCheckedChanged(RadioGroup arg0, int arg1) {
-                    RadioButton rbName = (RadioButton) findViewById(R.id.radioName);
-                    RadioButton rbCity = (RadioButton) findViewById(R.id.radioCity);
-                    if (rbName.isChecked()) {
-                        getSharedPreferences("MyContactListPreferences",
-                                Context.MODE_PRIVATE).edit()
-                                .putString("sortfield", "contactname").commit();
-                    }
-                    else if (rbCity.isChecked()) {
-                        getSharedPreferences("MyContactListPreferences",
-                                Context.MODE_PRIVATE).edit()
-                                .putString("sortfield", "city").commit();
-                    }
-                    else {
-                        getSharedPreferences("MyContactListPreferences",
-                                Context.MODE_PRIVATE).edit()
-                                .putString("sortfield", "birthday").commit();
-                    }
+            @Override
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                RadioButton rbName = (RadioButton) findViewById(R.id.radioName);
+                RadioButton rbCity = (RadioButton) findViewById(R.id.radioCity);
+                if (rbName.isChecked()) {
+                    getSharedPreferences("MyContactListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortfield", "contactname").commit();
                 }
-            });
-
-        }
-
-        private void initSortOrderClick() {
-            RadioGroup rgSortOrder = (RadioGroup) findViewById(R.id.radioGroupSortOrder);
-            rgSortOrder.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-                @Override
-                public void onCheckedChanged(RadioGroup arg0, int arg1) {
-                    RadioButton rbAscending = (RadioButton) findViewById(R.id.radioAscending);
-                    if (rbAscending.isChecked()) {
-                        getSharedPreferences("MyContactListPreferences",
-                                Context.MODE_PRIVATE).edit()
-                                .putString("sortorder", "ASC").commit();
-                    }
-                    else {
-                        getSharedPreferences("MyContactListPreferences",
-                                Context.MODE_PRIVATE).edit()
-                                .putString("sortorder", "DESC").commit();
-                    }
+                else if (rbCity.isChecked()) {
+                    getSharedPreferences("MyContactListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortfield", "city").commit();
                 }
-            });
-        }
-
-        private void initSetColor() {
-            RadioGroup rgSetColor = (RadioGroup) findViewById(R.id.colorGroup);
-            rgSetColor.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup arg0, int arg1) {
-                    RadioButton rbRed = (RadioButton) findViewById(R.id.radioRed);
-                    RadioButton rbBlue = (RadioButton) findViewById(R.id.radioBlue);
-
-                    RelativeLayout settings= (RelativeLayout) findViewById(R.id.settingsR);
-
-                    if (rbRed.isChecked()) {
-                        getSharedPreferences("MyContactListPreferences",
-                                Context.MODE_PRIVATE).edit()
-                                .putString("sortColr", "Red").commit();
-                        settings.setBackgroundColor(getResources().getColor(R.color.rb_red));
-
-
-                    }
-                    else if (rbBlue.isChecked()) {
-                        getSharedPreferences("MyContactListPreferences",
-                                Context.MODE_PRIVATE).edit()
-                                .putString("sortColr", "Blue").commit();
-                        settings.setBackgroundColor(getResources().getColor(R.color.rb_blue));
-                    }
+                else {
+                    getSharedPreferences("MyContactListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortfield", "birthday").commit();
                 }
-            });
-        }
+            }
+        });
+
+    }
+
+    private void initSortOrderClick() {
+        RadioGroup rgSortOrder = (RadioGroup) findViewById(R.id.radioGroupSortOrder);
+        rgSortOrder.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                RadioButton rbAscending = (RadioButton) findViewById(R.id.radioAscending);
+                if (rbAscending.isChecked()) {
+                    getSharedPreferences("MyContactListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortorder", "ASC").commit();
+                }
+                else {
+                    getSharedPreferences("MyContactListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortorder", "DESC").commit();
+                }
+            }
+        });
+    }
+
+    private void initSetColor() {
+        RadioGroup rgSetColor = (RadioGroup) findViewById(R.id.colorGroup);
+        rgSetColor.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                RadioButton rbRed = (RadioButton) findViewById(R.id.radioRed);
+                RadioButton rbBlue = (RadioButton) findViewById(R.id.radioBlue);
+                RadioButton rbDefault=(RadioButton)findViewById(R.id.radioDefault);
+
+                ScrollView settings= (ScrollView) findViewById(R.id.settingsScroll);
+
+                if (rbRed.isChecked()) {
+                    getSharedPreferences("MyContactListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortColr", "red").commit();
+                    settings.setBackgroundColor(getResources().getColor(R.color.rb_red));
+
+
+                }
+                else if (rbBlue.isChecked()) {
+                    getSharedPreferences("MyContactListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortColr", "blue").commit();
+                    settings.setBackgroundColor(getResources().getColor(R.color.rb_blue));
+                }
+                else if ( rbDefault.isChecked()){
+                    getSharedPreferences("MyContactListPreferences",
+                            Context.MODE_PRIVATE).edit()
+                            .putString("sortColr", "default").commit();
+                    settings.setBackgroundColor(getResources().getColor(R.color.rb_default));
+                }
+            }
+        });
+
+
+
+    }
 
 
 }
-
