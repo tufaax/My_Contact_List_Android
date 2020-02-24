@@ -12,7 +12,7 @@ import java.sql.SQLClientInfoException;
 public class ContactDBHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "mycontacts.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     private static final String CREATE_TABLE_CONTACT =
             "create table contact (_id integer primary key autoincrement, "
@@ -34,17 +34,17 @@ public class ContactDBHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         try {
-            db.execSQL("DROP TABLE contact");
+            db.execSQL("ALTER TABLE contact ADD COLUMN contactphoto blob");
         }
         catch(Exception e) {
             e.printStackTrace();
         }
 
-         Log.w(ContactDBHelper.class.getName(),
-                 "Upgrading database from versiong" + oldVersion + " to "
-                         + newVersion + ", which will destroy all old data");
-
-         onCreate(db);
+         //Log.w(ContactDBHelper.class.getName(),
+         //        "Upgrading database from versiong" + oldVersion + " to "
+                       //  + newVersion + ", which will destroy all old data");
+//
+      //   onCreate(db);
     }
 }
 

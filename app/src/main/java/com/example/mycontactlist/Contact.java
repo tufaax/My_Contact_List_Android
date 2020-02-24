@@ -1,6 +1,7 @@
 package com.example.mycontactlist;
 
 
+import android.graphics.Bitmap;
 import android.text.format.Time;
 import android.widget.TextView;
 
@@ -16,6 +17,15 @@ public class Contact {
     private String phoneNumber;
     private String cellNumber;
     private String eMail;
+    private Bitmap picture;
+
+    public Bitmap getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Bitmap picture) {
+        this.picture = picture;
+    }
 
     public int getBff() {
         return bff;

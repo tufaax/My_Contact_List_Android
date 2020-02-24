@@ -61,7 +61,9 @@
             android:layout_below="@+id/textContact"
             android:ems="14"
             android:imeOptions="actionNext"
-            android:inputType="textCapWords">
+            android:inputType="textCapWords"
+            android:layout_toLeftOf="@id/imageContact"
+            android:layout_toStartOf="@id/imageContact">
             <requestFocus/>
         </EditText>
 
@@ -251,6 +253,17 @@
                 android:layout_marginEnd="10dp"
                 android:textOff="U aint cool."
                 android:textOn="U cool."/>
+
+            <ImageButton
+                android:id="@+id/imageContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignTop="@+id/textContact"
+                app:srcCompat="@drawable/photoicon" />
 
 
         </RelativeLayout>
