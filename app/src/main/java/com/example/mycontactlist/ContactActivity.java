@@ -39,7 +39,7 @@ import java.util.Calendar;
 public class ContactActivity extends AppCompatActivity implements DatePickerDialog.SaveDateListener {
 
     private Contact currentContact;
-    final int PERMISSION_REQUEST_PHONE = 102;
+    final int PERMISSION_REQUEST_SMS = 104;
     final int PERMISSION_REQUEST_CAMERA = 103;
     final int CAMERA_REQUEST = 1888;
 
@@ -99,9 +99,9 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (ContextCompat.checkSelfPermission(ContactActivity.this,
-                    android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(ContactActivity.this,
-                        android.Manifest.permission.CALL_PHONE)) {
+                        Manifest.permission.SEND_SMS)) {
 
                     Snackbar.make(findViewById(R.id.activity_main),
                             "MyContactList requires this permission to place a call from the app.",
@@ -111,14 +111,14 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
                             ActivityCompat.requestPermissions(
                                     ContactActivity.this,
                                     new String[]{
-                                            android.Manifest.permission.CALL_PHONE},
-                                    PERMISSION_REQUEST_PHONE);
+                                            Manifest.permission.SEND_SMS},
+                                    PERMISSION_REQUEST_SMS);
                         }
                     }).show();
                 } else {
                     ActivityCompat.requestPermissions(ContactActivity.this, new
-                                    String[]{android.Manifest.permission.CALL_PHONE},
-                            PERMISSION_REQUEST_PHONE);
+                                    String[]{Manifest.permission.SEND_SMS},
+                            PERMISSION_REQUEST_SMS);
                 }
             } else {
                 callContact(phoneNumber);
@@ -132,7 +132,7 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
     public void onRequestPermissionsResult(int requestCode,
                                             @NonNull String permssions[], @NonNull int[] grantResults){
         switch(requestCode){
-            case PERMISSION_REQUEST_PHONE: {
+            case PERMISSION_REQUEST_SMS: {
                 if (grantResults.length > 0 && grantResults[0] ==
                 PackageManager.PERMISSION_GRANTED){
                     Toast.makeText(ContactActivity.this, "You many now call from this app.",
@@ -174,16 +174,19 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private void callContact(String phoneNumber){
-        Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse("tel:" + phoneNumber));
+
+        Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
         if( Build.VERSION.SDK_INT >= 23 &&
         ContextCompat.checkSelfPermission(getBaseContext(),
-                Manifest.permission.CALL_PHONE) !=
+                Manifest.permission.SEND_SMS) !=
         PackageManager.PERMISSION_GRANTED) {
             return;
         }
         else{
-            startActivity(intent);
+            smsIntent.setType("vnd.android-dir/mms-sms");
+            smsIntent.putExtra("address",currentContact.getPhoneNumber());
+            smsIntent.putExtra("sms_body","");
+            startActivity(smsIntent);
         }
     }
 
@@ -253,6 +256,7 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         Button buttonChange = (Button) findViewById(R.id.btnBirthday);
         Button buttonSave = (Button) findViewById(R.id.buttonSave);
         ToggleButton buttonFavorite=(ToggleButton) findViewById(R.id.btnBFF) ;
+        ImageButton picture = (ImageButton) findViewById(R.id.imageContact);
 
 
         editName.setEnabled(enabled);
@@ -264,6 +268,7 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
         buttonChange.setEnabled(enabled);
         buttonSave.setEnabled(enabled);
         buttonFavorite.setEnabled(enabled);
+        picture.setEnabled(enabled);
 
 
         if (enabled) {
