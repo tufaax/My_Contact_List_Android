@@ -174,19 +174,20 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private void callContact(String phoneNumber){
+        try {
 
-        Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
-        if( Build.VERSION.SDK_INT >= 23 &&
-        ContextCompat.checkSelfPermission(getBaseContext(),
-                Manifest.permission.SEND_SMS) !=
-        PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        else{
-            smsIntent.setType("vnd.android-dir/mms-sms");
-            smsIntent.putExtra("address",currentContact.getPhoneNumber());
-            smsIntent.putExtra("sms_body","");
-            startActivity(smsIntent);
+            if (Build.VERSION.SDK_INT >= 23 &&
+                    ContextCompat.checkSelfPermission(getBaseContext(),
+                            Manifest.permission.SEND_SMS) !=
+                            PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("smsto:" + Uri.encode(phoneNumber)));
+            startActivity(intent);
+        }catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "No SIM Found", Toast.LENGTH_LONG).show();
         }
     }
 

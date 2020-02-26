@@ -12,7 +12,7 @@ import java.sql.SQLClientInfoException;
 public class ContactDBHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "mycontacts.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 11;
 
     private static final String CREATE_TABLE_CONTACT =
             "create table contact (_id integer primary key autoincrement, "
