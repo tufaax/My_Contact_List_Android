@@ -77,20 +77,17 @@ public class ContactActivity extends AppCompatActivity implements DatePickerDial
     private  void initCallFunction() {
         EditText editPhone = (EditText)findViewById(R.id.editHome);
 
-        editPhone.setOnLongClickListener(new View.OnLongClickListener() {
+        editPhone.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
                 checkPhonePermission(currentContact.getPhoneNumber());
-                return false;
             }
         });
-
         EditText editCell = (EditText)findViewById(R.id.editCell);
-        editCell.setOnLongClickListener(new View.OnLongClickListener() {
+        editCell.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                checkPhonePermission(currentContact.getCellNumber());
-                return false;
+            public void onClick(View v) {
+                checkPhonePermission(currentContact.getPhoneNumber());
             }
         });
     }

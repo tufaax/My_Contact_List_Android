@@ -169,8 +169,6 @@ public class ContactDataSource {
                 newContact.setPhoneNumber(cursor.getString(6));
                 newContact.setCellNumber(cursor.getString(7));
                 newContact.seteMail(cursor.getString(8));
-                Calendar calendar = Calendar.getInstance();
-                newContact.setBirthday(calendar);
                 contacts.add(newContact);
                 newContact.setBff(cursor.getInt(10));
 
